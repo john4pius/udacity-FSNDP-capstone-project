@@ -45,3 +45,34 @@ class Site(db.Model):
             'site_name': self.site_name,
             'town': self.town
         }
+
+class Inventory(db.Model):
+    site_id = Column(Integer, primary_key=True)
+    site_name = Column(String)
+    technology = Column(String)
+    count_radio = Column(String)
+
+    def __init__(self, site_name, technology, gender):
+        self.name = site_name
+        self.technology = technology
+        self.count_radio = count_radio
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def format(self):
+        return {
+            'site_id': self.site_id,
+            'count_radio': self.count_radio,
+            'technology': self.technology,
+            'count_radio': self.count_radio
+        }
+        
