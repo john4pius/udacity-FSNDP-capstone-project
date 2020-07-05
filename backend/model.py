@@ -15,8 +15,8 @@ class Movie(db.Model):
 
     __tablename__ = 'movies'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String)
-    release_date = db.Column(db.Date)
+    title = db.Column(db.String, nullable=False)
+    release_date = db.Column(db.Date, nullable=False)
     actors = db.relationship('Actor', backref='movies')
 
     def format(self):
@@ -42,8 +42,8 @@ class Actor(db.Model):
  
     __tablename__ = 'actors' 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    age = db.Column(db.Integer)
+    name = db.Column(db.String, nullable=False)
+    age = db.Column(db.Integer, nullable=False)
     gender = db.Column(db.String)
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.id'), nullable=False)
 
