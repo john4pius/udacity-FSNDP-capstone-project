@@ -5,10 +5,14 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from models import setup_db, Movie, Actor, db
 from auth import Auth_Error, requires_auth
+from sqlalchemy import exc
 
+
+app = Flask(__name__)
+migrate = Migrate(app, db)
 
 def create_app(test_config=None):
-    app = Flask(__name__)
+    
     CORS(app, resources={r"/api/": {"origins": "*"}})
     setup_db(app)
 
@@ -148,9 +152,3 @@ def unprocessable_entity(error):
       })
       return app
 
-app = create_app()
-
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True)

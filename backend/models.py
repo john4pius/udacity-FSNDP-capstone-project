@@ -1,15 +1,24 @@
 from flask_sqlalchemy import SQLAlchemy
 import os
 
+''' database_name = 'movies'
+database_path = 'postgres://{}/{}'.format('localhost:5432', database_name) '''
+
+database_path = 'postgres://demorole1:password1@localhost:5432/movies'
+
 db = SQLAlchemy()
 
+'''
+setup_db(app)
+    binds a flask application and a SQLAlchemy service
+'''
 def setup_db(app):
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['DATABASE_URL']
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
-    db.init_app(app)
 
 
+    
 
 class Movie(db.Model):
 
