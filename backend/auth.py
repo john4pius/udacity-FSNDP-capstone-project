@@ -11,35 +11,52 @@ ALGORITHMS = ['RS256']
 API_AUDIENCE = 'moviescast'
 
 
-class Auth_Error(Exception):
+'''
+AuthError Exception
+A standardized way to communicate auth failure modes
+'''
+
+class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
+
+'''
+Implement get_token_auth_header() method
+'''
 
 
 def get_token_auth_header():
     auth = request.headers.get('Authorization', None)
     if not auth:
-        raise Auth_Error('No Authorization', 401)
+        raise AuthError('No Authorization', 401)
 
     head_authorization = auth.split()
 
     if len(head_authorization) != 2:
-        raise Auth_Error('Invalid Authorization', 401)
+        raise AuthError('Invalid Authorization', 401)
     elif head_authorization[0].lower() != 'bearer':
-        raise Auth_Error('Invalid Authorization', 401)
+        raise AuthError('Invalid Authorization', 401)
 
     return head_authorization[1]
 
+'''
+Implement check_permissions(permission, payload) method
+'''
 
 def check_permissions(permission, payload):
     if 'permissions' not in payload:
-        raise Auth_Error('No permissions found', 401)
+        raise AuthError('No permissions found', 401)
 
     if permission not in payload['permissions']:
-        raise Auth_Error('Bad permissions', 401)
+        raise AuthError('Bad permissions', 401)
 
     return True
+
+
+'''
+Implement verify_decode_jwt(token) method
+'''
 
 
 def verify_decode_jwt(token):
@@ -48,7 +65,7 @@ def verify_decode_jwt(token):
     unverified_header = jwt.get_unverified_header(token)
     rsa_key = {}
     if 'kid' not in unverified_header:
-        raise Auth_Error('Invalid Authorization', 401)
+        raise AuthError('Invalid Authorization', 401)
 
     for key in jwks['keys']:
         if key['kid'] == unverified_header['kid']:
@@ -72,14 +89,17 @@ def verify_decode_jwt(token):
             return payload
 
         except jwt.ExpiredSignatureError:
-            raise Auth_Error('Signature is Expired', 401)
+            raise AuthError('Signature is Expired', 401)
 
         except jwt.JWTClaimsError:
-            raise Auth_Error('Invalid claims', 401)
+            raise AuthError('Invalid claims', 401)
         except Exception as e:
-            raise Auth_Error('Unable to parse authentication token.', 400)
-    raise Auth_Error('Key not found', 400)
+            raise AuthError('Unable to parse authentication token.', 400)
+    raise AuthError('Key not found', 400)
 
+'''
+Implement @requires_auth(permission) decorator method
+'''
 
 def requires_auth(permission=''):
     def requires_auth_decorator(f):
