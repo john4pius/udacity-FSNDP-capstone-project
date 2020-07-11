@@ -3,10 +3,9 @@ from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import setup_db, Actor, Movie
-from auth import requires_auth, AuthError
+from auth import requires_auth, Auth_Error
 
 def create_app(test_config=None):
-    # create and configure the app
     app = Flask(__name__)
     setup_db(app)
     CORS(app)
@@ -20,10 +19,10 @@ def create_app(test_config=None):
 
     def check_movie_params(body):
         if not body['title']:
-            abort(422, {'message': 'No title in payload'})
+            abort(422, {'message': 'Payload has no title'})
 
         if not body['release']:
-            abort(422, {'message': 'No release date in payload'})
+            abort(422, {'message': 'payload has no release date'})
 
 
     @app.route('/actors')
@@ -124,11 +123,11 @@ def create_app(test_config=None):
             'deleted': movie.id
         }), 200
 
-    @app.errorhandler(AuthError)
-    def auth_error(AuthError):
+    @app.errorhandler(Auth_Error)
+    def auth_error(Auth_Error):
         return jsonify({
             'error': 401,
-            'message': 'Authentication Error'
+            'message': 'Authentication_Error'
         }), 401
 
     @app.errorhandler(404)
