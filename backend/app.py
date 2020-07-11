@@ -2,153 +2,153 @@ import os
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from flask_migrate import Migrate
-from models import setup_db, Movie, Actor, db
-from auth import Auth_Error, requires_auth
-from sqlalchemy import exc
-
-
-app = Flask(__name__)
-migrate = Migrate(app, db)
+from models import setup_db, Actor, Movie
+from auth import requires_auth, AuthError
 
 def create_app(test_config=None):
-    
-    CORS(app, resources={r"/api/": {"origins": "*"}})
+    # create and configure the app
+    app = Flask(__name__)
     setup_db(app)
+    CORS(app)
 
-@app.after_request
-def after_request(response):
-      response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization, true')
-      response.headers.add('Access-Control-Allow-Methods', 'GET, PATCH, POST, DELETE, OPTIONS')
-      return response
+    @app.after_request
+    def after_request(response):
+        response.headers.add('Access-Control-Allow-Headers',
+                             'Content-Type, Authorization, true')
+        response.headers.add('Access-Control-Allow-Methods', '*')
+        return response
+
+    def check_movie_params(body):
+        if not body['title']:
+            abort(422, {'message': 'No title in payload'})
+
+        if not body['release']:
+            abort(422, {'message': 'No release date in payload'})
 
 
-@app.route('/movies')
-@requires_auth('view:movies')
-def get_movies():
-      movies = Movie.query.all()
-      movies = [movie.format() for movie in movies]
-      for movie in movies:
-        movie['actors'] = [i.format() for i in movie['actors']]
-      return jsonify(movies)
-  
-@app.route('/actors')
-@requires_auth('view:actors')
-def get_actors():
-      actors = Actor.query.all()
-      actors = [actor.format() for actor in actors]
-      return jsonify(actors)
+    @app.route('/actors')
+    @requires_auth('read:actors')
+    def read_actors(payload):
+        actors = Actor.query.all()
+        return jsonify({
+            'success': True,
+            'actors': [actor.format() for actor in actors]
+        }), 200
 
-@app.route('/movies/create', methods=['POST'])
-@requires_auth('post:movie')
-def post_new_movie():
-      body = request.get_json()
+    @app.route('/actors', methods=['POST'])
+    @requires_auth('create:actors')
+    def create_actor(payload):
+        body = request.get_json()
+        try:
+            actor = Actor(body)
+            actor.insert()
+        except KeyError as e:
+            abort(422, {'message': f'Missing {e}.'})
 
-      title = body.get('title', None)
-      release_date = body.get('release_date', None)
+        return jsonify({
+            'success': True,
+            'created': actor.id
+        }), 201
 
-      movie = Movie(title=title, release_date=release_date)
-      movie.insert()
-      new_movie = Movie.query.get(movie.id)
-      new_movie = new_movie.format()
+    @app.route('/actors/<int:actor_id>', methods=['PATCH'])
+    @requires_auth('update:actors')
+    def update_actor(payload, actor_id):
+        actor = Actor.query.get_or_404(actor_id)
+        try:
+            body = request.get_json()
+            actor.update(body)
+        except KeyError as e:
+            abort(422, {'message': f'Missing {e}.'})
 
-      return jsonify({
-        'success': True,
-        'created': movie.id,
-        'new_movie': new_movie
-      })
+        return jsonify({
+            'success': True,
+            'updated': actor.id
+        }), 200
 
-@app.route('/actors/create', methods=['POST'])
-@requires_auth('post:actor')
-def post_new_actor():
-      body = request.get_json()
-      name = body.get('name', None)
-      age = body.get('age', None)
-      gender = body.get('gender', None)
-      movie_id = body.get('movie_id', None)
+    @app.route('/actors/<int:actor_id>', methods=['DELETE'])
+    @requires_auth('delete:actors')
+    def delete_actor(payload, actor_id):
+        actor = Actor.query.get_or_404(actor_id)
+        actor.delete()
+        return jsonify({
+            'success': True,
+            'deleted': actor_id
+        }), 200
 
-      actor = Actor(name=name, age=age, gender=gender, movie_id=movie_id)
-      actor.insert()
-      new_actor = Actor.query.get(actor.id)
-      new_actor = new_actor.format()
+    @app.route('/movies')
+    @requires_auth('read:movies')
+    def read_movies(payload):
+        movies = Movie.query.all()
+        return jsonify({
+            'success': True,
+            'movies': [movie.format() for movie in movies]
+        }), 200
 
-      return jsonify({
-        'success': True,
-        'created': actor.id,
-        'new_actor': new_actor
-      })
+    @app.route('/movies', methods=['POST'])
+    @requires_auth('create:movies')
+    def create_movie(payload):
+        body = request.get_json()
+        try:
+            movie = Movie(body)
+            movie.insert()
+        except KeyError as e:
+            abort(422, {'message': f'Missing {e}.'})
 
-@app.route('/movies/delete/<int:movie_id>', methods=['DELETE'])
-@requires_auth('delete:movie')
-def delete_movie(movie_id):
-      Movie.query.filter(Movie.id == movie_id).delete()
-      db.session.commit()
-      db.session.close()
-      return jsonify({
-        "success": True,
-        "message" : "Deleted"
-      })
+        return jsonify({
+            'success': True,
+            'created': movie.id
+        }), 201
 
-@app.route('/actors/delete/<int:actor_id>', methods=['DELETE'])
-@requires_auth('delete:actor')
-def delete_actor(actor_id):
-      Actor.query.filter(Actor.id == actor_id).delete()
-      db.session.commit()
-      db.session.close()
-      return jsonify({
-        "success": True,
-        "message" : "Deleted"
-      })
+    @app.route('/movies/<int:movie_id>', methods=['PATCH'])
+    @requires_auth('update:movies')
+    def update_movie(payload, movie_id):
+        movie = Movie.query.get_or_404(movie_id)
+        try:
+            body = request.get_json()
+            movie.update(body)
+        except KeyError as e:
+            abort(422, {'message': f'Missing {e}.'})
 
-@app.route('/actors/patch/<int:actor_id>', methods=['PATCH'])
-@requires_auth('patch:actors')
-def patch_actor(actor_id):
+        return jsonify({
+            'success': True,
+            'updated': movie.id
+        }), 200
 
-      actor = Actor.query.filter(Actor.id== actor_id)
-      body = request.get_json()
-      name = body.get('name', None)
-      age = body.get('age', None)
-      gender = body.get('gender', None)
-      movie_id = body.get('movie_id', None)
-      actor.name = name
-      actor.age = age
-      actor.gender = gender
-      actor.movie_id = movie_id
-      actor.update()
-      return jsonify({
-        "success": True,
-        "message": "updated"
-      })
-    
-@app.route('/movies/patch/<int:movie_id>')
-@requires_auth('patch:movies')
-def patch_movie(movie_id):
-      movie = Movie.query.filter(Movie.id == movie_id)
-      body = request.get_json()
-      title = body.get('title', None)
-      release_date = body.get('release_date', None)
-      movie.title = title
-      movie.release_date = release_date
-      movie.update()
-      return jsonify({
-        "success": True,
-        "message": "updated"
-      })
+    @app.route('/movies/<int:movie_id>', methods=['DELETE'])
+    @requires_auth('delete:movies')
+    def delete_movie(payload, movie_id):
+        movie = Movie.query.get_or_404(movie_id)
+        movie.delete()
+        return jsonify({
+            'success': True,
+            'deleted': movie.id
+        }), 200
 
-@app.errorhandler(404)
-def not_found(error):
-      return jsonify({
-        'success': False,
-        'error' : 404,
-        'message' : 'Not Found'
-      }), 404
+    @app.errorhandler(AuthError)
+    def auth_error(AuthError):
+        return jsonify({
+            'error': 401,
+            'message': 'Authentication Error'
+        }), 401
 
-@app.errorhandler(422)
-def unprocessable_entity(error):
-      return jsonify({
-        'success': False,
-        'error': 422,
-        'message': 'Unprocessable Entity'
-      })
-      return app
+    @app.errorhandler(404)
+    def not_found(error):
+        return jsonify({
+            'error': 404,
+            'message': 'Not Found'
+        }), 404
 
+    @app.errorhandler(422)
+    def not_found(error):
+        return jsonify({
+            'error': 422,
+            'message': error.description['message']
+        }), 422
+
+    return app
+
+
+APP = create_app()
+
+if __name__ == '__main__':
+    APP.run(host='0.0.0.0', port=8080, debug=True)
