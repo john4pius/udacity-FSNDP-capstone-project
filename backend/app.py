@@ -14,7 +14,7 @@ def create_app(test_config=None):
     def after_request(response):
         response.headers.add('Access-Control-Allow-Headers',
                              'Content-Type, Authorization, true')
-        response.headers.add('Access-Control-Allow-Methods', '*')
+        response.headers.add('Access-Control-Allow-Methods', 'GET, POST, UPDATE, DELETE')
         return response
 
     def check_movie_params(body):
