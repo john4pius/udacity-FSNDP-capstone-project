@@ -1,0 +1,370 @@
+{
+    "info": {
+        "_postman_id": "7e93f50a-92f0-4905-b722-3e1ecaa654ee",
+        "name": "fsndp-capstone-heroku",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [{
+            "name": "Get movies",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [{
+                        "key": "token",
+                        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1EWkdRVVUwTjBVNVFrUkNOVFpFTmpBeE1VTTBSVFJDTlVJME5EWXlNak00UVRsQ01qUkdRUSJ9.eyJpc3MiOiJodHRwczovL29jcmFuLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGRlNjYxZThiNTliMTBlMTk4NTQ1MGMiLCJhdWQiOiJtb3ZpZXMiLCJpYXQiOjE1NzUwMjU3MDYsImV4cCI6MTU3NTA5NzcwNSwiYXpwIjoiY2xpVm5pNDBKc2syZ1BtTWt3NDN2WGhZOGM2NVV5cWwiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIl19.olY-0GWGYiMOihKGIRXtGmSaec6D_elM-4sI-8idsQmbAgL2rIta1hsIGqwXLBO3FHTIdfFUiKblksF6YBFH_ptuTEvUOQ9YDlZuKSGhyCTNRBCCXTsEVpAuQeeBoXjVefDfvofK4Y_WNXvfEIFTsvZMm_odUXZTeVhEHuGOiH-KEVQSdFNUshL5nUT-zOMsaui_6BP4d4D5zv3YBFv7GMK2HOFijXCf6XfIHpliDfI8XdapNYNf3ELkE2Wxq8k4S8-kdByoZkR_z5IwDojFstTXD6OSwAMqyPEVzZoTE56eUvoWdUH_pQ6XvAMIheOSvzKEcMJLO84AYYc7zfcnYQ",
+                        "type": "string"
+                    }]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://fsndp-capstone-api.herokuapp.com/movies",
+                    "protocol": "https",
+                    "host": [
+                        "fsndp-capstone-api",
+                        "herokuapp",
+                        "com"
+                    ],
+                    "path": [
+                        "movies"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get single movie",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [{
+                        "key": "token",
+                        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1EWkdRVVUwTjBVNVFrUkNOVFpFTmpBeE1VTTBSVFJDTlVJME5EWXlNak00UVRsQ01qUkdRUSJ9.eyJpc3MiOiJodHRwczovL29jcmFuLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGRlNjYxZThiNTliMTBlMTk4NTQ1MGMiLCJhdWQiOiJtb3ZpZXMiLCJpYXQiOjE1NzUwMjU3MDYsImV4cCI6MTU3NTA5NzcwNSwiYXpwIjoiY2xpVm5pNDBKc2syZ1BtTWt3NDN2WGhZOGM2NVV5cWwiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIl19.olY-0GWGYiMOihKGIRXtGmSaec6D_elM-4sI-8idsQmbAgL2rIta1hsIGqwXLBO3FHTIdfFUiKblksF6YBFH_ptuTEvUOQ9YDlZuKSGhyCTNRBCCXTsEVpAuQeeBoXjVefDfvofK4Y_WNXvfEIFTsvZMm_odUXZTeVhEHuGOiH-KEVQSdFNUshL5nUT-zOMsaui_6BP4d4D5zv3YBFv7GMK2HOFijXCf6XfIHpliDfI8XdapNYNf3ELkE2Wxq8k4S8-kdByoZkR_z5IwDojFstTXD6OSwAMqyPEVzZoTE56eUvoWdUH_pQ6XvAMIheOSvzKEcMJLO84AYYc7zfcnYQ",
+                        "type": "string"
+                    }]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://fsndp-capstone-api.herokuapp.com/movies/1",
+                    "protocol": "https",
+                    "host": [
+                        "fsndp-capstone-api",
+                        "herokuapp",
+                        "com"
+                    ],
+                    "path": [
+                        "movies",
+                        "1"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Post movie",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [{
+                        "key": "token",
+                        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1EWkdRVVUwTjBVNVFrUkNOVFpFTmpBeE1VTTBSVFJDTlVJME5EWXlNak00UVRsQ01qUkdRUSJ9.eyJpc3MiOiJodHRwczovL29jcmFuLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGRlNjE0NmQ2NzBhZDBkMmIwMDVkODMiLCJhdWQiOiJtb3ZpZXMiLCJpYXQiOjE1NzUwMjY1MzAsImV4cCI6MTU3NTA5ODUyOSwiYXpwIjoiY2xpVm5pNDBKc2syZ1BtTWt3NDN2WGhZOGM2NVV5cWwiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.e2KSarbt6PLrRzatpFhbysjKbX28LSVoxt7_2dwtWsEimxk4Rll81fzP2HQCPZF8udWH0X4ym4MsYiyS9QeW_3p1FVToV_5X7cWPPER9NDYxAd-YEcC4U6m77ok12WFqLHc3jOzG26UIffCdlXtSFexieisBM8HRCPJ4j8Elpq2RcH93pEsNR1UQpGMYk-HFm9yzyseNv9ESOPHio0qVBpilLle2Qu12lrQCQUV8bAUDWzdbi0PgPNklFczXaP-Gt0Vz6tde4oYCpr2AfhXldofLJJSa1GrZYYVqtcBcngEKYHXTYWB_iTgPj8zPHj6HqHs_AbhCLWdy9TA7U1tPaA",
+                        "type": "string"
+                    }]
+                },
+                "method": "POST",
+                "header": [{
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n\t\"title\": \"Titanic\",\n\t\"release_date\": \"1986-02-23\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "https://fsndp-capstone-api.herokuapp.com/movies",
+                    "protocol": "https",
+                    "host": [
+                        "fsndp-capstone-api",
+                        "herokuapp",
+                        "com"
+                    ],
+                    "path": [
+                        "movies"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Edit movie",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [{
+                        "key": "token",
+                        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1EWkdRVVUwTjBVNVFrUkNOVFpFTmpBeE1VTTBSVFJDTlVJME5EWXlNak00UVRsQ01qUkdRUSJ9.eyJpc3MiOiJodHRwczovL29jcmFuLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGRlNjUxYzc2OWEyZDBlZDNhZjUwNGYiLCJhdWQiOiJtb3ZpZXMiLCJpYXQiOjE1NzUwMjYwNTksImV4cCI6MTU3NTA5ODA1OCwiYXpwIjoiY2xpVm5pNDBKc2syZ1BtTWt3NDN2WGhZOGM2NVV5cWwiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3JzIl19.Xz9wEVSaYhbUHVVGO5MF91hXtQ500dqqAAw3Ul6wxEzBqBHLbJq_CqG8Pcx4UQpU3gzCPaTzIFLOEctzJ2EwqSp2ZTUm7pj3ThzKhPp5KQcL-zqVZQ7clnE_8oCDLniN_TJtVl6sSGdAFiYzOETlrHxYj6Mje-GDOtB8XzvWq9nhstThm_H8qQMua1VyvSA7r0BduA_LUTKZZX80fAuf_DbhjJbqfnz1dHzeNRJtmTyMhBc05ujSphleMsgkPAd24MWLVl--cNmK5JTUsGZeJm-aofAqQCj8-8HA7N21rQ0MnnK1J1tMkPzwOywYZxlgY1aUygnDQtPoILYCm76SeQ",
+                        "type": "string"
+                    }]
+                },
+                "method": "PATCH",
+                "header": [{
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n\t\"title\": \"The Black Panther\",\n\t\"release_date\": \"2018-01-12\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "https://fsndp-capstone-api.herokuapp.com/movies/1",
+                    "protocol": "https",
+                    "host": [
+                        "fsndp-capstone-api",
+                        "herokuapp",
+                        "com"
+                    ],
+                    "path": [
+                        "movies",
+                        "1"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Delete movie",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [{
+                        "key": "token",
+                        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1EWkdRVVUwTjBVNVFrUkNOVFpFTmpBeE1VTTBSVFJDTlVJME5EWXlNak00UVRsQ01qUkdRUSJ9.eyJpc3MiOiJodHRwczovL29jcmFuLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGRlNjE0NmQ2NzBhZDBkMmIwMDVkODMiLCJhdWQiOiJtb3ZpZXMiLCJpYXQiOjE1NzUwMjY1MzAsImV4cCI6MTU3NTA5ODUyOSwiYXpwIjoiY2xpVm5pNDBKc2syZ1BtTWt3NDN2WGhZOGM2NVV5cWwiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.e2KSarbt6PLrRzatpFhbysjKbX28LSVoxt7_2dwtWsEimxk4Rll81fzP2HQCPZF8udWH0X4ym4MsYiyS9QeW_3p1FVToV_5X7cWPPER9NDYxAd-YEcC4U6m77ok12WFqLHc3jOzG26UIffCdlXtSFexieisBM8HRCPJ4j8Elpq2RcH93pEsNR1UQpGMYk-HFm9yzyseNv9ESOPHio0qVBpilLle2Qu12lrQCQUV8bAUDWzdbi0PgPNklFczXaP-Gt0Vz6tde4oYCpr2AfhXldofLJJSa1GrZYYVqtcBcngEKYHXTYWB_iTgPj8zPHj6HqHs_AbhCLWdy9TA7U1tPaA",
+                        "type": "string"
+                    }]
+                },
+                "method": "DELETE",
+                "header": [{
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n\t\"title\": \"\",\n\t\"release_year\": \"some year\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "https://fsndp-capstone-api.herokuapp.com/movies/5",
+                    "protocol": "https",
+                    "host": [
+                        "fsndp-capstone-api",
+                        "herokuapp",
+                        "com"
+                    ],
+                    "path": [
+                        "movies",
+                        "5"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Post actor",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [{
+                        "key": "token",
+                        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1EWkdRVVUwTjBVNVFrUkNOVFpFTmpBeE1VTTBSVFJDTlVJME5EWXlNak00UVRsQ01qUkdRUSJ9.eyJpc3MiOiJodHRwczovL29jcmFuLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGRlNjUxYzc2OWEyZDBlZDNhZjUwNGYiLCJhdWQiOiJtb3ZpZXMiLCJpYXQiOjE1NzUwMjYwNTksImV4cCI6MTU3NTA5ODA1OCwiYXpwIjoiY2xpVm5pNDBKc2syZ1BtTWt3NDN2WGhZOGM2NVV5cWwiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3JzIl19.Xz9wEVSaYhbUHVVGO5MF91hXtQ500dqqAAw3Ul6wxEzBqBHLbJq_CqG8Pcx4UQpU3gzCPaTzIFLOEctzJ2EwqSp2ZTUm7pj3ThzKhPp5KQcL-zqVZQ7clnE_8oCDLniN_TJtVl6sSGdAFiYzOETlrHxYj6Mje-GDOtB8XzvWq9nhstThm_H8qQMua1VyvSA7r0BduA_LUTKZZX80fAuf_DbhjJbqfnz1dHzeNRJtmTyMhBc05ujSphleMsgkPAd24MWLVl--cNmK5JTUsGZeJm-aofAqQCj8-8HA7N21rQ0MnnK1J1tMkPzwOywYZxlgY1aUygnDQtPoILYCm76SeQ",
+                        "type": "string"
+                    }]
+                },
+                "method": "POST",
+                "header": [{
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n\t\"name\": \"Tyson\",\n\t\"age\": 54,\n\t\"gender\": \"Male\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "https://fsndp-capstone-api.herokuapp.com/actors",
+                    "protocol": "https",
+                    "host": [
+                        "fsndp-capstone-api",
+                        "herokuapp",
+                        "com"
+                    ],
+                    "path": [
+                        "actors"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get actors",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [{
+                        "key": "token",
+                        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1EWkdRVVUwTjBVNVFrUkNOVFpFTmpBeE1VTTBSVFJDTlVJME5EWXlNak00UVRsQ01qUkdRUSJ9.eyJpc3MiOiJodHRwczovL29jcmFuLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGRlNjYxZThiNTliMTBlMTk4NTQ1MGMiLCJhdWQiOiJtb3ZpZXMiLCJpYXQiOjE1NzUwMjU3MDYsImV4cCI6MTU3NTA5NzcwNSwiYXpwIjoiY2xpVm5pNDBKc2syZ1BtTWt3NDN2WGhZOGM2NVV5cWwiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIl19.olY-0GWGYiMOihKGIRXtGmSaec6D_elM-4sI-8idsQmbAgL2rIta1hsIGqwXLBO3FHTIdfFUiKblksF6YBFH_ptuTEvUOQ9YDlZuKSGhyCTNRBCCXTsEVpAuQeeBoXjVefDfvofK4Y_WNXvfEIFTsvZMm_odUXZTeVhEHuGOiH-KEVQSdFNUshL5nUT-zOMsaui_6BP4d4D5zv3YBFv7GMK2HOFijXCf6XfIHpliDfI8XdapNYNf3ELkE2Wxq8k4S8-kdByoZkR_z5IwDojFstTXD6OSwAMqyPEVzZoTE56eUvoWdUH_pQ6XvAMIheOSvzKEcMJLO84AYYc7zfcnYQ",
+                        "type": "string"
+                    }]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://fsndp-capstone-api.herokuapp.com/actors",
+                    "protocol": "https",
+                    "host": [
+                        "fsndp-capstone-api",
+                        "herokuapp",
+                        "com"
+                    ],
+                    "path": [
+                        "actors"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get single actor",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [{
+                        "key": "token",
+                        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1EWkdRVVUwTjBVNVFrUkNOVFpFTmpBeE1VTTBSVFJDTlVJME5EWXlNak00UVRsQ01qUkdRUSJ9.eyJpc3MiOiJodHRwczovL29jcmFuLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGRlNjYxZThiNTliMTBlMTk4NTQ1MGMiLCJhdWQiOiJtb3ZpZXMiLCJpYXQiOjE1NzUwMjU3MDYsImV4cCI6MTU3NTA5NzcwNSwiYXpwIjoiY2xpVm5pNDBKc2syZ1BtTWt3NDN2WGhZOGM2NVV5cWwiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIl19.olY-0GWGYiMOihKGIRXtGmSaec6D_elM-4sI-8idsQmbAgL2rIta1hsIGqwXLBO3FHTIdfFUiKblksF6YBFH_ptuTEvUOQ9YDlZuKSGhyCTNRBCCXTsEVpAuQeeBoXjVefDfvofK4Y_WNXvfEIFTsvZMm_odUXZTeVhEHuGOiH-KEVQSdFNUshL5nUT-zOMsaui_6BP4d4D5zv3YBFv7GMK2HOFijXCf6XfIHpliDfI8XdapNYNf3ELkE2Wxq8k4S8-kdByoZkR_z5IwDojFstTXD6OSwAMqyPEVzZoTE56eUvoWdUH_pQ6XvAMIheOSvzKEcMJLO84AYYc7zfcnYQ",
+                        "type": "string"
+                    }]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://fsndp-capstone-api.herokuapp.com/actors/1",
+                    "protocol": "https",
+                    "host": [
+                        "fsndp-capstone-api",
+                        "herokuapp",
+                        "com"
+                    ],
+                    "path": [
+                        "actors",
+                        "1"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Edit actor",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [{
+                        "key": "token",
+                        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1EWkdRVVUwTjBVNVFrUkNOVFpFTmpBeE1VTTBSVFJDTlVJME5EWXlNak00UVRsQ01qUkdRUSJ9.eyJpc3MiOiJodHRwczovL29jcmFuLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGRlNjUxYzc2OWEyZDBlZDNhZjUwNGYiLCJhdWQiOiJtb3ZpZXMiLCJpYXQiOjE1NzUwMjYwNTksImV4cCI6MTU3NTA5ODA1OCwiYXpwIjoiY2xpVm5pNDBKc2syZ1BtTWt3NDN2WGhZOGM2NVV5cWwiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3JzIl19.Xz9wEVSaYhbUHVVGO5MF91hXtQ500dqqAAw3Ul6wxEzBqBHLbJq_CqG8Pcx4UQpU3gzCPaTzIFLOEctzJ2EwqSp2ZTUm7pj3ThzKhPp5KQcL-zqVZQ7clnE_8oCDLniN_TJtVl6sSGdAFiYzOETlrHxYj6Mje-GDOtB8XzvWq9nhstThm_H8qQMua1VyvSA7r0BduA_LUTKZZX80fAuf_DbhjJbqfnz1dHzeNRJtmTyMhBc05ujSphleMsgkPAd24MWLVl--cNmK5JTUsGZeJm-aofAqQCj8-8HA7N21rQ0MnnK1J1tMkPzwOywYZxlgY1aUygnDQtPoILYCm76SeQ",
+                        "type": "string"
+                    }]
+                },
+                "method": "PATCH",
+                "header": [{
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n\t\"name\": \"Tyson\",\n\t\"age\": 54,\n\t\"gender\": \"Male\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "https://fsndp-capstone-api.herokuapp.com/actors/3",
+                    "protocol": "https",
+                    "host": [
+                        "fsndp-capstone-api",
+                        "herokuapp",
+                        "com"
+                    ],
+                    "path": [
+                        "actors",
+                        "3"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Delete actor",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [{
+                        "key": "token",
+                        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1EWkdRVVUwTjBVNVFrUkNOVFpFTmpBeE1VTTBSVFJDTlVJME5EWXlNak00UVRsQ01qUkdRUSJ9.eyJpc3MiOiJodHRwczovL29jcmFuLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGRlNjUxYzc2OWEyZDBlZDNhZjUwNGYiLCJhdWQiOiJtb3ZpZXMiLCJpYXQiOjE1NzUwMjYwNTksImV4cCI6MTU3NTA5ODA1OCwiYXpwIjoiY2xpVm5pNDBKc2syZ1BtTWt3NDN2WGhZOGM2NVV5cWwiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3JzIl19.Xz9wEVSaYhbUHVVGO5MF91hXtQ500dqqAAw3Ul6wxEzBqBHLbJq_CqG8Pcx4UQpU3gzCPaTzIFLOEctzJ2EwqSp2ZTUm7pj3ThzKhPp5KQcL-zqVZQ7clnE_8oCDLniN_TJtVl6sSGdAFiYzOETlrHxYj6Mje-GDOtB8XzvWq9nhstThm_H8qQMua1VyvSA7r0BduA_LUTKZZX80fAuf_DbhjJbqfnz1dHzeNRJtmTyMhBc05ujSphleMsgkPAd24MWLVl--cNmK5JTUsGZeJm-aofAqQCj8-8HA7N21rQ0MnnK1J1tMkPzwOywYZxlgY1aUygnDQtPoILYCm76SeQ",
+                        "type": "string"
+                    }]
+                },
+                "method": "DELETE",
+                "header": [{
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "url": {
+                    "raw": "https://fsndp-capstone-api.herokuapp.com/actors/10",
+                    "protocol": "https",
+                    "host": [
+                        "fsndp-capstone-api",
+                        "herokuapp",
+                        "com"
+                    ],
+                    "path": [
+                        "actors",
+                        "10"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ],
+    "protocolProfileBehavior": {}
+}
