@@ -11,7 +11,7 @@ CASTING_ASSISTANT = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVNLUoxTTBsSWR
 
 
 class CapstoneTestCase(unittest.TestCase):
-    """This class represents the movies-hub test case"""
+    """This class represents the Capstone test case"""
     def setUp(self):
         """Define test variables and initialize app."""
         self.app = create_app()

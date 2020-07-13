@@ -1,4 +1,3 @@
-
 ./setup.sh
 export ENV='test'
 echo 'DROPPING TABLES... (if any)'
@@ -11,4 +10,4 @@ echo 'SEEDING TABLES...'
 python manage.py seed
 
 echo 'RUNNING TEST...'
-python3 test_app.py
+python test.py

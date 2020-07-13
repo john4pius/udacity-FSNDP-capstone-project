@@ -5,6 +5,7 @@ from flask_cors import CORS
 from models import setup_db, Actor, Movie
 from auth import requires_auth, AuthError
 
+
 def create_app(test_config=None):
     app = Flask(__name__)
     setup_db(app)
