@@ -3,7 +3,7 @@ from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import setup_db, Actor, Movie
-from auth import requires_auth, Auth_Error
+from auth import requires_auth, AuthError
 
 def create_app(test_config=None):
     app = Flask(__name__)
@@ -123,8 +123,8 @@ def create_app(test_config=None):
             'deleted': movie.id
         }), 200
 
-    @app.errorhandler(Auth_Error)
-    def auth_error(Auth_Error):
+    @app.errorhandler(AuthError)
+    def AuthError(AuthError):
         return jsonify({
             'error': 401,
             'message': 'Authentication_Error'
