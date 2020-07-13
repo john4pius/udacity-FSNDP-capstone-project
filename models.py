@@ -4,10 +4,7 @@ import os
 import sys
 import json
 
-if os.environ['ENV'] == 'test':
-    database_path = os.environ['TEST_DATABASE_URL']
-else:
-    database_path = os.environ['DATABASE_URL']
+database_path = os.environ['DATABASE_URL']
 
 db = SQLAlchemy()
 

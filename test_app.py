@@ -5,13 +5,12 @@ import json
 from app import create_app
 from models import setup_db, Movie, Actor
 
-EXECUTIVE_PRODUCER = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVNLUoxTTBsSWRYcXZWU0YyYWlTZyJ9.eyJpc3MiOiJodHRwczovL2NhcHN0b25lLWZzbmRwLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjBhNTdmMjJlYjMwMzAwMTljODY0NjQiLCJhdWQiOiJtb3ZpZXNjYXN0IiwiaWF0IjoxNTk0NTE0MjM4LCJleHAiOjE1OTQ1MjE0MzgsImF6cCI6ImJlTUNJNVg5VTUzWTdjbjR0eXlqVzZCUmI3eVZuVldZIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJERUxFVEU6YWN0b3JzIiwiREVMRVRFOm1vdmllcyIsIkdFVDphY3RvcnMiLCJHRVQ6bW92aWVzIiwiUEFUQ0g6YWN0b3JzIiwiUEFUQ0g6bW92aWVzIiwiUE9TVDphY3RvcnMiLCJQT1NUOm1vdmllcyJdfQ.nDNzrIfQ-LN_8ALly7jVvNeVV5KWhbLrjOCH2c4zhkBtmLKKLIxvAvEEm26K2opLS0dUOtbzwAbYkw9nJAqraPzUupyCaIgFKO7hI73zwPUTecLcoTBEzS6M4G3znbsc_LMKHwKNS_mLnEVyM-zrjmQRxZ28rwNlEquMiy9Uklc8UCFXtYtttvGXBf_WJ9dz-6ljOBvBvcT9paxpyEwgg0LEmUNpQv_EJwu5p8nCt8ZXMb22YIqq4nCiJJTRLO_KMqdN-ys_0DeskMZNZK3NwSpOidTZ68aizv_TSX__h1AFTQlD-G66ndB9k7EwouKKbQQaALc-Oo0D4FDUp0i5zQ'
-CASTING_DIRECTOR = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVNLUoxTTBsSWRYcXZWU0YyYWlTZyJ9.eyJpc3MiOiJodHRwczovL2NhcHN0b25lLWZzbmRwLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjBhOGViYzcxNDY4YzAwMTMwMDE3YzIiLCJhdWQiOiJtb3ZpZXNjYXN0IiwiaWF0IjoxNTk0NTI3NzE2LCJleHAiOjE1OTQ1MzQ5MTYsImF6cCI6ImJlTUNJNVg5VTUzWTdjbjR0eXlqVzZCUmI3eVZuVldZIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJERUxFVEU6YWN0b3JzIiwiR0VUOmFjdG9ycyIsIkdFVDptb3ZpZXMiLCJQQVRDSDphY3RvcnMiLCJQQVRDSDptb3ZpZXMiLCJQT1NUOmFjdG9ycyJdfQ.cJ0Dho43oaTnVExVPkIW8blnPjDGjn8CR_OOmc2w5B4GAai-9IgEDC8cixMfdR1CJuHYN4DYIyyNqtOFZv989N4nznyTnBrw1V7VlGjiSxMXKVRR779TlycjrUo2t7REc5DXN4SbwlwT8sCCPgrVHfGw2omfJRVFUxwPDSxTjxGYMHHa2S72_EATgh8smom1ykrbhZI_D1Nxt4Btex-6xyyDUyouxvOwlep-t4qgBJMe68fE2u-Gu6s8n6h4laG1Wbjq70lC06i4PKJsjO_NT1Wx9rMVEqd8q63n17UN6ES4RubeTQ5JkkeVRt4UHZ_zPQeRJhE-zFj56q4DMbw7cg'
-CASTING_ASSISTANT = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVNLUoxTTBsSWRYcXZWU0YyYWlTZyJ9.eyJpc3MiOiJodHRwczovL2NhcHN0b25lLWZzbmRwLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjBhOGU3YmZkMzBlMjAwMTM2NjYwZTYiLCJhdWQiOiJtb3ZpZXNjYXN0IiwiaWF0IjoxNTk0NTI3NTg5LCJleHAiOjE1OTQ1MzQ3ODksImF6cCI6ImJlTUNJNVg5VTUzWTdjbjR0eXlqVzZCUmI3eVZuVldZIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJHRVQ6YWN0b3JzIiwiR0VUOm1vdmllcyJdfQ.lIFiodCieDNj6J0-kzlUQMkzCdF-S_i1R6BZMuZjGuBH38_afOTEABnojUicgjUh2gDUDY8aw9AYLRNko4dnfQw29WNUHpb7WEZKMxjeke0SpMIWvsxUlFhZ38QF5fY-SKi01UzEw4qynocDx1ZpMk4Dt7s2a_yUtFxpZeIMupOfmVr3Brui5eInIs028yOuHbkb0r3MKqxOzhX-ENgHXApbDkrCRwKGT1ustVuM4YHZJcehY4fltTBHM8eoGQZa9qhwvP25jyIAv_ZDa_m8M3w7FXtW4qlvKlJiJmp6MAHwJI0ZgZnUygss_DTTwiD5VOUGjcuGGMhgU5qlIq0BRA'
-
+EXECUTIVE_PRODUCER = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVNLUoxTTBsSWRYcXZWU0YyYWlTZyJ9.eyJpc3MiOiJodHRwczovL2NhcHN0b25lLWZzbmRwLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjBhNTdmMjJlYjMwMzAwMTljODY0NjQiLCJhdWQiOiJtb3ZpZXNjYXN0IiwiaWF0IjoxNTk0NjQwNjIwLCJleHAiOjE1OTQ3MjcwMjAsImF6cCI6ImJlTUNJNVg5VTUzWTdjbjR0eXlqVzZCUmI3eVZuVldZIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJERUxFVEU6YWN0b3JzIiwiREVMRVRFOm1vdmllcyIsIkdFVDphY3RvcnMiLCJHRVQ6bW92aWVzIiwiUEFUQ0g6YWN0b3JzIiwiUEFUQ0g6bW92aWVzIiwiUE9TVDphY3RvcnMiLCJQT1NUOm1vdmllcyJdfQ.JbeOjj4DTa3HqyrcgU0m7ucLlGhUe1OY_-WQIXAOzNQZZIHjyrrGSB8uMqbyd8qxjkzQqLggUOM9rEz9Six1rBHUugGqQ-k-p2lumxJyG5iRQvNI53GNwOWZjJu_nw86eFTLP_G20u6NHOknDnrVg8cK8NV7Z_qm0nOitD5EQRILYrLGQSflZeXhHTfbUhBPKDpE1XHXTmHmHzykAO__EEWe9nDsPyECX-sKfmovJOzxZ-r_ygfiBnUVjKpJGe9B5mNywOTMyhnK01RN1XCZq7KmR0LU_BS0b8S2758fjJ_ZkP9MWSFXwaBewYAgMExrbJ-HTzkeLKjQ1g40FDOHOw'
+CASTING_DIRECTOR = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVNLUoxTTBsSWRYcXZWU0YyYWlTZyJ9.eyJpc3MiOiJodHRwczovL2NhcHN0b25lLWZzbmRwLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjBhOGViYzcxNDY4YzAwMTMwMDE3YzIiLCJhdWQiOiJtb3ZpZXNjYXN0IiwiaWF0IjoxNTk0NjQwNjkxLCJleHAiOjE1OTQ3MjcwOTEsImF6cCI6ImJlTUNJNVg5VTUzWTdjbjR0eXlqVzZCUmI3eVZuVldZIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJERUxFVEU6YWN0b3JzIiwiR0VUOmFjdG9ycyIsIkdFVDptb3ZpZXMiLCJQQVRDSDphY3RvcnMiLCJQQVRDSDptb3ZpZXMiLCJQT1NUOmFjdG9ycyJdfQ.wL9m3yLSCcAc_hPSnGLOwmfM7eBAx1UUeyDiJIHmen54ZLl4rzzowZ13lDk9lyjo89io-p6WJKPp09sGcdioR61DFEF8nFzcXrqmlENld4rxJfPtPumAABH_NYBFxP2OeBZFZXu5fbU7G_WDmB7sH8t7vxYbUh-GYA-_fHhcYr1O2tyitHD3Lnl2bozdGnlaRAA2tx4GB-Cl9gPiG8YytNe09yeqZvAcmoQDUke4BIwYOd_ZUxmK9fenh5cZCz_Cmx1Yo8oFquRrR4JpiT5uk41vQPDoZWDI60DOwRAg6Di0FUUKLCrtHlic5TPdJChhzQkiYtVClkbQ3Ty3lj5WZw'
+CASTING_ASSISTANT = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVNLUoxTTBsSWRYcXZWU0YyYWlTZyJ9.eyJpc3MiOiJodHRwczovL2NhcHN0b25lLWZzbmRwLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjBhOGU3YmZkMzBlMjAwMTM2NjYwZTYiLCJhdWQiOiJtb3ZpZXNjYXN0IiwiaWF0IjoxNTk0NjQwNzUzLCJleHAiOjE1OTQ3MjcxNTMsImF6cCI6ImJlTUNJNVg5VTUzWTdjbjR0eXlqVzZCUmI3eVZuVldZIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJHRVQ6YWN0b3JzIiwiR0VUOm1vdmllcyJdfQ.ilU_Tu9E0TxDlvsnQoDPt809j0Cf_p-K-vHURFJIPCFyfVO35iuVvtDVhwepVGDrf_uKhx70hvjCU_1qRaUJOxjpCM0d5XM3Vse3NYLIXlFOXHtQZOKKTCkDB3xkEScTOCI4wulrFdJXUweT_nSDAX18H0nNXzo6bI2K_sYMqogSjv0bMEBs7C3Zt0FaQmci0L02YX5hAJVjiaKfHtxJ5CnG80MytrdTl0uTv7mldJb-Bxs3i4KPV7CPmoZCU5p4ca1OrVphAYSOND1cMXF3DJFbeHOKjtshKmVr9aTrwEgksmpbYXOJKzULXuIZfMMx2o9wPEQk-5GPjP7WlSYacw'
 
 class CapstoneTestCase(unittest.TestCase):
-    """This class represents the Capstone test case"""
+    """This class represents the movies-hub test case"""
     def setUp(self):
         """Define test variables and initialize app."""
         self.app = create_app()
@@ -24,6 +23,7 @@ class CapstoneTestCase(unittest.TestCase):
         """Executed after reach test"""
         pass
 
+    ''' GET /movies '''
     def test_get_movies(self):
         response = self.client().get(
             '/movies',
@@ -34,6 +34,7 @@ class CapstoneTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertTrue(data['movies'])
 
+    ''' GET /movies/id '''
     def test_get_movie_by_id(self):
         response = self.client().get(
             '/movies/1',
@@ -56,10 +57,11 @@ class CapstoneTestCase(unittest.TestCase):
         self.assertTrue(data['message'])
         self.assertEqual(data['message'], 'Resource not found')
 
+    '''  POST /movies '''
     def test_post_movie(self):
         response = self.client().post(
             '/movies',
-            json={'title': 'Jumanji', 'release_date': "1981-02-19"},
+            json={'title': 'mission impossible 3', 'release_date': "2006-08-01"},
             headers={"Authorization": "Bearer " + EXECUTIVE_PRODUCER}
         )
         data = json.loads(response.data)
@@ -89,6 +91,7 @@ class CapstoneTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 401)
         self.assertEqual(data['message']['code'], 'unauthorized')
 
+    ''' PATCH /movies '''
     def test_edit_movie(self):
         response = self.client().patch(
             '/movies/2',
@@ -123,6 +126,7 @@ class CapstoneTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'Resource not found')
 
+    ''' DELETE /movies/id '''
     def test_delete_movie(self):
         response = self.client().delete(
             '/movies/3',
@@ -153,7 +157,8 @@ class CapstoneTestCase(unittest.TestCase):
         self.assertEqual(data['message']['code'], 'unauthorized')
 
 
-
+    ''' # ==========================================================================================================
+    #  GET /actors '''
     def test_get_actors(self):
         response = self.client().get(
             '/actors',
@@ -164,7 +169,7 @@ class CapstoneTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertTrue(data['actors'])
 
-
+    ''' GET /actors/id '''
     def test_get_actor_by_id(self):
         response = self.client().get(
             '/actors/1',
@@ -187,7 +192,7 @@ class CapstoneTestCase(unittest.TestCase):
         self.assertTrue(data['message'])
         self.assertEqual(data['message'], 'Resource not found')
 
-
+    ''' POST /actors '''
     def test_post_actor(self):
         response = self.client().post(
             '/actors',
@@ -221,7 +226,7 @@ class CapstoneTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 401)
         self.assertEqual(data['message']['code'], 'unauthorized')
 
-
+    ''' PATCH /actors '''
     def test_edit_actor(self):
         response = self.client().patch(
             '/actors/2',
@@ -256,7 +261,7 @@ class CapstoneTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'Resource not found')
 
-
+    ''' DELETE /actors/id '''
     def test_delete_actor(self):
         response = self.client().delete(
             '/actors/3',
@@ -286,6 +291,6 @@ class CapstoneTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 401)
         self.assertEqual(data['message']['code'], 'unauthorized')
 
-
-if __name__ == "__main__":
+''' Make the tests conveniently executable
+if __name__ == "__main__": '''
     unittest.main()
