@@ -124,7 +124,7 @@ def create_app(test_config=None):
         }), 200
 
     @app.errorhandler(AuthError)
-    def AuthError(AuthError):
+    def auth_error(AuthError):
         return jsonify({
             'error': 401,
             'message': 'Authentication_Error'

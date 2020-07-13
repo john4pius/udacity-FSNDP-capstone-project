@@ -16,7 +16,7 @@ class CapstoneTestCase(unittest.TestCase):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client
-        self.database_path = os.environ['TEST_DATABASE_URL']
+        self.database_path = os.environ['DATABASE_URL']
 
         setup_db(self.app, self.database_path)
 
