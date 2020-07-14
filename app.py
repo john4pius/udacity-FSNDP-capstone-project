@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask import Flask, jsonify, abort, request
 from models import setup_db, db, Movie, Actor
 from auth import AuthError, requires_auth
+from sqlalchemy import exc
 from utils import *
 
 
@@ -14,29 +15,37 @@ def create_app(test_config=None):
 
     @app.route('/')
     def welcome():
-        return 'Welcome to Movies Hub!'
+        return 'Welcome to Movies Inventory!'
 
     @app.route('/movies')
     @requires_auth('get:movies')
     def get_movies(jwt):
-        movies = Movie.query.all()
-        return jsonify({
-            'success': True,
-            'movies': [movie.format() for movie in movies],
-        }), 200
+        try:
+            movies = Movie.query.all()
+            return jsonify({
+                'success': True,
+                'movies': [movie.format() for movie in movies],
+            }), 200
+        
+        except Exception:
+            abort(404)
 
     @app.route('/movies/<int:id>')
     @requires_auth('get:movies')
     def get_movie_by_id(jwt, id):
-        movie = Movie.query.get(id)
+        try:
+            movie = Movie.query.get(id)
 
-        if movie is None:
-            abort(404)
-        else:
-            return jsonify({
-                'success': True,
-                'movie': movie.format(),
-            }), 200
+            if movie is None:
+                abort(404)
+            else:
+                return jsonify({
+                    'success': True,
+                    'movie': movie.format(),
+                }), 200
+        
+        except Exception:
+            abort(404)        
 
     @app.route('/movies', methods=['POST'])
     @requires_auth('post:movies')
@@ -217,6 +226,16 @@ def create_app(test_config=None):
             "error": 401,
             "message": error.description,
         }), 401
+        
+    
+    @app.errorhandler(AuthError)
+    def handle_auth_error(ex):
+        return jsonify({
+            "success": False,
+            "error": ex.status_code,
+            'message': ex.error
+        }), 401
+        
 
     ''' handle forbidden requests '''
     @app.errorhandler(403)
@@ -234,6 +253,15 @@ def create_app(test_config=None):
             "success": False,
             "message": "Resource not found"
         }), 404
+        
+    
+    @app.errorhandler(422)
+    def unprocessable(error):
+        return jsonify({
+            "success": False,
+            "error": 422,
+            "message": "unprocessable"
+            }), 422
 
     ''' handle bad request '''
     @app.errorhandler(500)

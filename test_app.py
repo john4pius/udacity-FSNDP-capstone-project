@@ -291,6 +291,6 @@ class CapstoneTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 401)
         self.assertEqual(data['message']['code'], 'unauthorized')
 
-''' Make the tests conveniently executable
-if __name__ == "__main__": '''
+'''  Make the tests conveniently executable '''
+if __name__ == "__main__":
     unittest.main()
